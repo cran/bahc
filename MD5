@@ -1,0 +1,5 @@
+7582b9c45c0eb2b92e7b3290e3cb6b84 *DESCRIPTION
+a37f923179c5228b8e7104282b32d6da *NAMESPACE
+93ed7f9c9e6199fe5ea1fc90ce1182e5 *R/main.R
+3abc5bcefca3ff2a4ab2e178a5492b1c *man/filterCorrelation.Rd
+386efd077f25f3f3bd80a68f7c9163a4 *man/filterCovariance.Rd
