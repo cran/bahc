@@ -68,9 +68,35 @@ filterCorrelation=function(x,Nboot=100){
 }
 
 
+HigherOrder=function(C,k){
+  N = dim(C)[1]
+  Cf = matrix(0,N,N)
+  for(i in 1:k){
+    res = C-Cf
+    dend = dendr(1-res)
+    res = AvLinkC(dend,res)
+    diag(res)=0
+    Cf = Cf + res
+  }
+  diag(Cf)= 1
+  return(Cf)
+}
+
+no_neg=function(C){
+  e = eigen(C)
+  v = e$vectors
+  l = e$values
+  mask = l>0
+  v = v[,mask,drop=FALSE]
+  return( tcrossprod(v * rep(l[mask], each = nrow(v)), v) )
+}
+
+
+
 #' Compute the BAHC covariance matrix.
 #' @export
-#' @param x A matrix: $x_{i,f}$ is feature $f$ of object $i$:
+#' @param x A matrix: $x_{i,f}$ is feature $f$ of object $i$
+#' @param k The order of filtering. $k=1$ corresponds to BAHC.
 #' @param Nboot The number of bootstrap copies
 #' @return The BAHC-filtered correlation matrix of \code{x}.
 #' @examples
@@ -78,7 +104,7 @@ filterCorrelation=function(x,Nboot=100){
 #' sigma=exp(runif(20))
 #' rs=t(sigma %*% r) %*% sigma
 #' Cov_bahc=filterCovariance(rs)
-filterCovariance=function(x,Nboot=100){
+filterCovariance=function(x,k=1,Nboot=100){
   N=dim(x)[1]
   TT=dim(x)[2]
 
@@ -89,9 +115,9 @@ filterCovariance=function(x,Nboot=100){
   for(it in 1:Nboot){
     xboot = x[,sample(rT,replace=TRUE)] + mynoise
     Cboot  = cor(t(xboot))
-    Dend = dendr(1-Cboot)
-    std = matrixStats::rowSds(xboot)
-    Sbav = Sbav+AvLinkC(Dend,Cboot)*outer(std,std)
+    Cf = HigherOrder(Cboot,k)
+    std = rowSds(xboot)
+    Sbav = Sbav+ no_neg( Cf*outer(std,std) )
   }
   Sbav = Sbav/Nboot
   return(Sbav)

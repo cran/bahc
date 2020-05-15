@@ -4,10 +4,12 @@
 \alias{filterCovariance}
 \title{Compute the BAHC covariance matrix.}
 \usage{
-filterCovariance(x, Nboot = 100)
+filterCovariance(x, k = 1, Nboot = 100)
 }
 \arguments{
-\item{x}{A matrix: $x_{i,f}$ is feature $f$ of object $i$:}
+\item{x}{A matrix: $x_{i,f}$ is feature $f$ of object $i$}
+
+\item{k}{The order of filtering. $k=1$ corresponds to BAHC.}
 
 \item{Nboot}{The number of bootstrap copies}
 }
