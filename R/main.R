@@ -3,6 +3,7 @@
 #' @import utils
 #' @importFrom stats as.dist
 #' @importFrom stats cor rnorm
+#'
 dendr=function(R){
   out = fastcluster::hclust(as.dist(R),method="average")
   M=out$merge
@@ -43,13 +44,14 @@ noise=function(N,T,epsilon=1e-10){
 
 #' Compute the BAHC correlation matrix.
 #' @export
-#' @param x A matrix: $x_{i,f}$ is feature $f$ of object $i$.
+#' @param x A matrix: \eqn{x_{i,f}} is feature \eqn{f} of object \eqn{i}
+#' @param k The order of filtering. \eqn{k=1} corresponds to BAHC.
 #' @param Nboot The number of bootstrap copies
 #' @return The BAHC-filtered correlation matrix of \code{x}.
 #' @examples
 #' r=matrix(rnorm(1000),nrow=20)   # 20 objects, 50 features each
 #' Cor_bahc=filterCorrelation(r)
-filterCorrelation=function(x,Nboot=100){
+filterCorrelation=function(x,k=1,Nboot=100){
   N=dim(x)[1]
   TT=dim(x)[2]
 
@@ -60,8 +62,7 @@ filterCorrelation=function(x,Nboot=100){
   for(it in 1:Nboot){
     xboot = x[,sample(rT,replace=TRUE)] + mynoise
     Cboot  = cor(t(xboot))
-    Dend = dendr(1-Cboot)
-    Cbav = Cbav+AvLinkC(Dend,Cboot)
+    Cbav = HigherOrder(Cboot,k)
   }
   Cbav = Cbav/Nboot
   return(Cbav)
@@ -95,8 +96,8 @@ no_neg=function(C){
 
 #' Compute the BAHC covariance matrix.
 #' @export
-#' @param x A matrix: $x_{i,f}$ is feature $f$ of object $i$
-#' @param k The order of filtering. $k=1$ corresponds to BAHC.
+#' @param x A matrix: \eqn{x_{i,f}} is feature \eqn{f} of object \eqn{i}
+#' @param k The order of filtering. \eqn{k=1} corresponds to BAHC.
 #' @param Nboot The number of bootstrap copies
 #' @return The BAHC-filtered correlation matrix of \code{x}.
 #' @examples

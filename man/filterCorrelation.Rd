@@ -4,10 +4,12 @@
 \alias{filterCorrelation}
 \title{Compute the BAHC correlation matrix.}
 \usage{
-filterCorrelation(x, Nboot = 100)
+filterCorrelation(x, k = 1, Nboot = 100)
 }
 \arguments{
-\item{x}{A matrix: $x_{i,f}$ is feature $f$ of object $i$.}
+\item{x}{A matrix: \eqn{x_{i,f}} is feature \eqn{f} of object \eqn{i}}
+
+\item{k}{The order of filtering. \eqn{k=1} corresponds to BAHC.}
 
 \item{Nboot}{The number of bootstrap copies}
 }

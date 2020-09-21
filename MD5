@@ -1,5 +1,6 @@
-71f711d16123907399d1523f0ab47244 *DESCRIPTION
+4042267d9fc10f159a5bd7d49719b306 *DESCRIPTION
 a37f923179c5228b8e7104282b32d6da *NAMESPACE
-609650ed5e396f8285e28d62b55136b0 *R/main.R
-3abc5bcefca3ff2a4ab2e178a5492b1c *man/filterCorrelation.Rd
-5c919f5bdb3d85c2677819fb54d5ddd8 *man/filterCovariance.Rd
+1f316ef9a595d4eca420e441321e8879 *NEWS
+ac76ca20fc49a50ecbbf1f0dda7fb8e3 *R/main.R
+1868be944938e6b6f3cad40862202a88 *man/filterCorrelation.Rd
+f43d35144f68144b0333aba8959a2df5 *man/filterCovariance.Rd

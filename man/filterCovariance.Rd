@@ -7,9 +7,9 @@
 filterCovariance(x, k = 1, Nboot = 100)
 }
 \arguments{
-\item{x}{A matrix: $x_{i,f}$ is feature $f$ of object $i$}
+\item{x}{A matrix: \eqn{x_{i,f}} is feature \eqn{f} of object \eqn{i}}
 
-\item{k}{The order of filtering. $k=1$ corresponds to BAHC.}
+\item{k}{The order of filtering. \eqn{k=1} corresponds to BAHC.}
 
 \item{Nboot}{The number of bootstrap copies}
 }
